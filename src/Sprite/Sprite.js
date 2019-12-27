@@ -9,6 +9,11 @@ export class Sprite extends DisplayObject {
   }
 
   draw() {
+    if (this.texture === null) {
+      console.warn("No texture set for " + this.name);
+      return;
+    }
+
     const { x, y } = this.getPosition();
 
     this.ctx.drawImage(

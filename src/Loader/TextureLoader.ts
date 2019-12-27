@@ -1,26 +1,19 @@
-class Texture {
-  constructor(name, canvas, data) {
-    this.name = name;
-    this.canvas = canvas;
-    this.data = data;
-  }
+import { Texture } from "../Texture/Texture";
+import { TextureData } from "../Texture/TextureData";
+
+interface SpriteSheetFrame {
+  frame: { x: number; y: number; w: number; h: number; };
+  sourceSize: { w: number, h: number };
 }
 
-class TextureData {
-  constructor(x, y, w, h) {
-    this.x = x;
-    this.y = y;
-    this.width = w;
-    this.height = h;
-  }
+interface SpriteSheetData {
+  frames: { [index: string]: SpriteSheetFrame };
 }
 
 export class TextureLoader {
-  constructor() {
-    this.textures = new Map();
-  }
+  private textures: Map<string, Texture> = new Map();
 
-  load(path, data) {
+  public load(path: string, data: SpriteSheetData) {
     return new Promise((res, rej) => {
       const img = document.createElement("img");
 
@@ -35,7 +28,7 @@ export class TextureLoader {
     });
   }
 
-  createTexture(img, data) {
+  private createTexture(img: HTMLImageElement, data: SpriteSheetData) {
     for (const name in data.frames) {
       const { sourceSize, frame } = data.frames[name];
       const canvas = new OffscreenCanvas(sourceSize.w, sourceSize.h);
@@ -59,7 +52,7 @@ export class TextureLoader {
     }
   }
 
-  getTexture(key) {
+  getTexture(key: string) {
     return this.textures.get(key);
   }
 }

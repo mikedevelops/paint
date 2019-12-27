@@ -1,7 +1,7 @@
 import { DisplayObject } from "../DisplayObject";
 
 export class Stage extends DisplayObject {
-  constructor(ctx) {
+  constructor(ctx: CanvasRenderingContext2D) {
     super(ctx, 0, 0, ctx.canvas.width, ctx.canvas.height);
   }
 

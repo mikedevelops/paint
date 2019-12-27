@@ -1,11 +1,14 @@
 import { Stage } from "../Stage/Stage";
 import { Graphics } from "../Graphics/Graphics";
+import { Sprite } from "../Sprite/Sprite";
+import { Texture } from "../Texture/Texture";
 
 export class Renderer {
-  constructor(canvas) {
-    this.canvas = canvas;
+  private ctx: CanvasRenderingContext2D;
+  private stage: Stage | null = null;
+  
+  constructor(private canvas: HTMLCanvasElement) {
     this.ctx = canvas.getContext("2d");
-    this.stage = null;
   }
 
   start() {
@@ -15,7 +18,7 @@ export class Renderer {
 
   drawBackground() {
     Graphics.fillRect(
-      this.ctx, 0, 0, this.canvas.width, this.canvas.height, 0x000000
+      this.ctx, 0, 0, this.canvas.width, this.canvas.height, "black"
     );
   }
 
@@ -25,8 +28,12 @@ export class Renderer {
     this.stage.draw();
   }
 
-  createSprite() {
-    return new Sprite(this.ctx); 
+  createSprite(texture: Texture | null = null) {
+    const sprite = new Sprite(this.ctx);
+
+    sprite.texture = texture;
+
+    return sprite;
   }
 }
 
