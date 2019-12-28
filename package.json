@@ -6,12 +6,13 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "parcel src/index.html",
-    "tsc:watch": "tsc src/**/*.ts --noEmit --watch"
+    "tsc:watch": "tsc src/**/*.ts --noEmit --watch --lib es2015,dom"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/offscreencanvas": "^2019.6.0",
     "parcel-bundler": "^1.12.4"
   },
   "dependencies": {

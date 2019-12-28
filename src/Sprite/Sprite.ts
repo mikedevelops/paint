@@ -1,11 +1,18 @@
 import { DisplayObject } from "../DisplayObject";
-import { loader } from "../Loader/TextureLoader";
+import { Vector2 } from "../Vector/Vector2";
+import { Texture } from "../Texture/Texture";
 
 export class Sprite extends DisplayObject {
-  constructor(ctx, x = 0, y = 0, w = 0, h = 0) {
-    super(ctx, x, y, w, h);
-    this.texture = null;
-    this.name = null;
+  private texture: Texture | null = null;
+  private name: string = "";
+
+  constructor(
+    ctx: CanvasRenderingContext2D, 
+    position: Vector2 = Vector2.zero(), 
+    width = 0, 
+    height = 0
+  ) {
+    super(ctx, position, width, height);
   }
 
   draw() {
@@ -32,9 +39,15 @@ export class Sprite extends DisplayObject {
 
   getPosition() {
     if (this.parent === null) {
-      return { x: this.x, y: this.y };
+      return this.position;
     }
 
-    return { x: this.parent.x + this.x, y: this.parent.y + this.y };
+    return Vector2.add(this.parent.position, this.position);
+  }
+
+  setTexture(texture: Texture): void {
+    this.width = texture.data.width;
+    this.height = texture.data.height;
+    this.texture = texture;
   }
 }

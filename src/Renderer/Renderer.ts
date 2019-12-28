@@ -2,6 +2,7 @@ import { Stage } from "../Stage/Stage";
 import { Graphics } from "../Graphics/Graphics";
 import { Sprite } from "../Sprite/Sprite";
 import { Texture } from "../Texture/Texture";
+import { Vector2 } from "../Vector/Vector2";
 
 export class Renderer {
   private ctx: CanvasRenderingContext2D;
@@ -28,10 +29,10 @@ export class Renderer {
     this.stage.draw();
   }
 
-  createSprite(texture: Texture | null = null) {
-    const sprite = new Sprite(this.ctx);
+  createSprite(position: Vector2 = Vector2.zero(), texture: Texture | null = null) {
+    const sprite = new Sprite(this.ctx, position);
 
-    sprite.texture = texture;
+    sprite.setTexture(texture);
 
     return sprite;
   }

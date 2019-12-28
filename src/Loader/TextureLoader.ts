@@ -11,7 +11,15 @@ interface SpriteSheetData {
 }
 
 export class TextureLoader {
+  public static instance: TextureLoader;
+
   private textures: Map<string, Texture> = new Map();
+
+  constructor() {
+    if (TextureLoader.instance !== undefined) throw new Error("Multiple instances of the texture loader");
+
+    TextureLoader.instance = this;
+  }
 
   public load(path: string, data: SpriteSheetData) {
     return new Promise((res, rej) => {
